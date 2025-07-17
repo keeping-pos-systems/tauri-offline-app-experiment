@@ -9,70 +9,120 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as OfflineModeExperimentRouteImport } from './routes/offline-mode-experiment'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as OfflineModeExperimentRouteRouteImport } from './routes/offline-mode-experiment/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as OfflineModeExperimentMenuRouteImport } from './routes/offline-mode-experiment/menu'
+import { Route as OfflineModeExperimentCreateOrderRouteImport } from './routes/offline-mode-experiment/create-order'
+import { Route as OfflineModeExperimentAddNewEmployeeRouteImport } from './routes/offline-mode-experiment/add-new-employee'
 
-const OfflineModeExperimentRoute = OfflineModeExperimentRouteImport.update({
-  id: '/offline-mode-experiment',
-  path: '/offline-mode-experiment',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
+const OfflineModeExperimentRouteRoute =
+  OfflineModeExperimentRouteRouteImport.update({
+    id: '/offline-mode-experiment',
+    path: '/offline-mode-experiment',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const OfflineModeExperimentMenuRoute =
+  OfflineModeExperimentMenuRouteImport.update({
+    id: '/menu',
+    path: '/menu',
+    getParentRoute: () => OfflineModeExperimentRouteRoute,
+  } as any)
+const OfflineModeExperimentCreateOrderRoute =
+  OfflineModeExperimentCreateOrderRouteImport.update({
+    id: '/create-order',
+    path: '/create-order',
+    getParentRoute: () => OfflineModeExperimentRouteRoute,
+  } as any)
+const OfflineModeExperimentAddNewEmployeeRoute =
+  OfflineModeExperimentAddNewEmployeeRouteImport.update({
+    id: '/add-new-employee',
+    path: '/add-new-employee',
+    getParentRoute: () => OfflineModeExperimentRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/offline-mode-experiment': typeof OfflineModeExperimentRouteRouteWithChildren
   '/about': typeof AboutRoute
-  '/offline-mode-experiment': typeof OfflineModeExperimentRoute
+  '/offline-mode-experiment/add-new-employee': typeof OfflineModeExperimentAddNewEmployeeRoute
+  '/offline-mode-experiment/create-order': typeof OfflineModeExperimentCreateOrderRoute
+  '/offline-mode-experiment/menu': typeof OfflineModeExperimentMenuRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/offline-mode-experiment': typeof OfflineModeExperimentRouteRouteWithChildren
   '/about': typeof AboutRoute
-  '/offline-mode-experiment': typeof OfflineModeExperimentRoute
+  '/offline-mode-experiment/add-new-employee': typeof OfflineModeExperimentAddNewEmployeeRoute
+  '/offline-mode-experiment/create-order': typeof OfflineModeExperimentCreateOrderRoute
+  '/offline-mode-experiment/menu': typeof OfflineModeExperimentMenuRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/offline-mode-experiment': typeof OfflineModeExperimentRouteRouteWithChildren
   '/about': typeof AboutRoute
-  '/offline-mode-experiment': typeof OfflineModeExperimentRoute
+  '/offline-mode-experiment/add-new-employee': typeof OfflineModeExperimentAddNewEmployeeRoute
+  '/offline-mode-experiment/create-order': typeof OfflineModeExperimentCreateOrderRoute
+  '/offline-mode-experiment/menu': typeof OfflineModeExperimentMenuRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/offline-mode-experiment'
+  fullPaths:
+    | '/'
+    | '/offline-mode-experiment'
+    | '/about'
+    | '/offline-mode-experiment/add-new-employee'
+    | '/offline-mode-experiment/create-order'
+    | '/offline-mode-experiment/menu'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/offline-mode-experiment'
-  id: '__root__' | '/' | '/about' | '/offline-mode-experiment'
+  to:
+    | '/'
+    | '/offline-mode-experiment'
+    | '/about'
+    | '/offline-mode-experiment/add-new-employee'
+    | '/offline-mode-experiment/create-order'
+    | '/offline-mode-experiment/menu'
+  id:
+    | '__root__'
+    | '/'
+    | '/offline-mode-experiment'
+    | '/about'
+    | '/offline-mode-experiment/add-new-employee'
+    | '/offline-mode-experiment/create-order'
+    | '/offline-mode-experiment/menu'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  OfflineModeExperimentRouteRoute: typeof OfflineModeExperimentRouteRouteWithChildren
   AboutRoute: typeof AboutRoute
-  OfflineModeExperimentRoute: typeof OfflineModeExperimentRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/offline-mode-experiment': {
-      id: '/offline-mode-experiment'
-      path: '/offline-mode-experiment'
-      fullPath: '/offline-mode-experiment'
-      preLoaderRoute: typeof OfflineModeExperimentRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/about': {
       id: '/about'
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/offline-mode-experiment': {
+      id: '/offline-mode-experiment'
+      path: '/offline-mode-experiment'
+      fullPath: '/offline-mode-experiment'
+      preLoaderRoute: typeof OfflineModeExperimentRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -82,13 +132,54 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/offline-mode-experiment/menu': {
+      id: '/offline-mode-experiment/menu'
+      path: '/menu'
+      fullPath: '/offline-mode-experiment/menu'
+      preLoaderRoute: typeof OfflineModeExperimentMenuRouteImport
+      parentRoute: typeof OfflineModeExperimentRouteRoute
+    }
+    '/offline-mode-experiment/create-order': {
+      id: '/offline-mode-experiment/create-order'
+      path: '/create-order'
+      fullPath: '/offline-mode-experiment/create-order'
+      preLoaderRoute: typeof OfflineModeExperimentCreateOrderRouteImport
+      parentRoute: typeof OfflineModeExperimentRouteRoute
+    }
+    '/offline-mode-experiment/add-new-employee': {
+      id: '/offline-mode-experiment/add-new-employee'
+      path: '/add-new-employee'
+      fullPath: '/offline-mode-experiment/add-new-employee'
+      preLoaderRoute: typeof OfflineModeExperimentAddNewEmployeeRouteImport
+      parentRoute: typeof OfflineModeExperimentRouteRoute
+    }
   }
 }
 
+interface OfflineModeExperimentRouteRouteChildren {
+  OfflineModeExperimentAddNewEmployeeRoute: typeof OfflineModeExperimentAddNewEmployeeRoute
+  OfflineModeExperimentCreateOrderRoute: typeof OfflineModeExperimentCreateOrderRoute
+  OfflineModeExperimentMenuRoute: typeof OfflineModeExperimentMenuRoute
+}
+
+const OfflineModeExperimentRouteRouteChildren: OfflineModeExperimentRouteRouteChildren =
+  {
+    OfflineModeExperimentAddNewEmployeeRoute:
+      OfflineModeExperimentAddNewEmployeeRoute,
+    OfflineModeExperimentCreateOrderRoute:
+      OfflineModeExperimentCreateOrderRoute,
+    OfflineModeExperimentMenuRoute: OfflineModeExperimentMenuRoute,
+  }
+
+const OfflineModeExperimentRouteRouteWithChildren =
+  OfflineModeExperimentRouteRoute._addFileChildren(
+    OfflineModeExperimentRouteRouteChildren,
+  )
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  OfflineModeExperimentRouteRoute: OfflineModeExperimentRouteRouteWithChildren,
   AboutRoute: AboutRoute,
-  OfflineModeExperimentRoute: OfflineModeExperimentRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

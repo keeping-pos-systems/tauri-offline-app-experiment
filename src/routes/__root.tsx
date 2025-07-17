@@ -1,5 +1,5 @@
 import { createRootRoute, Link, Outlet } from "@tanstack/react-router";
-import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
+import ReloadPrompt from "@/components/reload-prompt";
 
 export const Route = createRootRoute({
 	component: () => (
@@ -12,12 +12,13 @@ export const Route = createRootRoute({
 					About
 				</Link>
 				<Link to="/offline-mode-experiment" className="[&.active]:font-bold">
-                    Offline mode
+					Offline mode
 				</Link>
 			</div>
 			<hr />
 			<Outlet />
-			<TanStackRouterDevtools />
+			<ReloadPrompt />
 		</>
 	),
+	errorComponent: () => <div>Error</div>,
 });

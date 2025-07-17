@@ -1,8 +1,9 @@
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
-import { tanstackRouter } from "@tanstack/router-plugin/vite";
-import tailwindcss from "@tailwindcss/vite";
 import path from "node:path";
+import tailwindcss from "@tailwindcss/vite";
+import { tanstackRouter } from "@tanstack/router-plugin/vite";
+import react from "@vitejs/plugin-react";
+import { defineConfig } from "vite";
+import { VitePWA } from "vite-plugin-pwa";
 
 const host = process.env.TAURI_DEV_HOST;
 
@@ -12,10 +13,15 @@ export default defineConfig(async () => ({
 		// Please make sure that '@tanstack/router-plugin' is passed before '@vitejs/plugin-react'
 		tanstackRouter({
 			target: "react",
-			autoCodeSplitting: true,
+			autoCodeSplitting: false,
+			codeSplittingOptions: {
+				defaultBehavior: [],
+			},
 		}),
 		react(),
 		tailwindcss(),
+
+		VitePWA({ registerType: "autoUpdate" }),
 	],
 
 	// Vite options tailored for Tauri development and only applied in `tauri dev` or `tauri build`
